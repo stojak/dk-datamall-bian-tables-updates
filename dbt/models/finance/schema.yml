@@ -1,0 +1,6 @@
+version: 2
+
+models:
+  - name: abt_webtool_contracts
+  - name: abt_webtool_customers
+  - name: abt_webtool_transactionlog

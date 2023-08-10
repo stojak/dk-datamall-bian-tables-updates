@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: webtool_work_contracts
+  - name: webtool_work_customers
+  - name: webtool_work_transactionlog
+
+sources:
+  - name: base
+    schema: base
+    tables:
+      - name: import_webtool_base_contracts
+      - name: import_webtool_base_customers
+      - name: import_webtool_base_transactionlog
