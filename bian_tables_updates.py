@@ -39,9 +39,9 @@ args = {
     }
 
 with DAG(
-    "webtool",
-    start_date=datetime(2023, 7, 24),
-    description="DAG (triggered by import_webtool DAG) loads Webtool tables: from base to work and work - finance schemas.",
+    "bian_tables_updates",
+    start_date=datetime(2023, 8, 23),
+    description="DAG (triggered by on-time DAG) loads last updates of all BIAN tables into META history table",
     catchup=False,
     default_args=args,
     schedule_interval=None,
@@ -70,6 +70,17 @@ with DAG(
             dag=dag,
             )
         
-        run_dbt_datamall_work >> run_dbt_datamall_finance
+        run_dbt_datamall_meta = BashOperator(
+            task_id='run_dbt_datamall_meta',
+            bash_command="rm -rf /tmp/$DAG_FOLDER;\
+                          cp -r $DAG_PATH /tmp/$DAG_FOLDER;\
+                          $DBT_VENV_PATH_1_5/bin/dbt run --select snowflake_datamall_meta.* --project-dir /tmp/$DAG_FOLDER/dbt --profiles-dir /tmp/$DAG_FOLDER/dbt",
+            env=env,
+            append_env=True,
+            dag=dag,
+            )
+        
+        run_dbt_datamall_meta
+        #run_dbt_datamall_work >> run_dbt_datamall_finance
 
         RunDBT
