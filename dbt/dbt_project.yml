@@ -33,9 +33,9 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   webtool:
     # Config indicated by + and applies to all files under models/example/
-    work:
+    meta:
       +materialized: table
-      +schema: work
+      +schema: meta
     finance:
       +materialized: table
       +schema: finance

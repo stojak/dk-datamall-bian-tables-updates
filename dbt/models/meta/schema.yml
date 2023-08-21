@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: v_bian_tables_updates
+  - name: bian_tables_updates_history
+
+sources:
+  - name: meta
+    schema: meta
+    tables:
+      - name: v_bian_tables_updates
